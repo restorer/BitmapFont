@@ -2,7 +2,6 @@ package bitmapFont;
 
 import haxe.Utf8;
 import haxe.xml.Fast;
-import openfl.display.Tilesheet;
 import openfl.display.BitmapData;
 import openfl.display.Graphics;
 import openfl.geom.ColorTransform;
@@ -10,7 +9,7 @@ import openfl.geom.Matrix;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
 
-#if RENDER_TILE
+#if (RENDER_TILE && (openfl < "4.0"))
 import openfl.display.Tilesheet;
 #end
 
@@ -171,7 +170,7 @@ class BitmapFont
 	
 	public var glyphs:Map<Int, BitmapGlyphFrame>;
 	
-	#if RENDER_TILE
+	#if (RENDER_TILE && (openfl < "4.0"))
 	public var tilesheet:Tilesheet;
 	#end
 	
@@ -182,7 +181,7 @@ class BitmapFont
 	{
 		this.bitmap = bitmap;
 		this.fontName = name;
-		#if RENDER_TILE
+		#if (RENDER_TILE && (openfl < "4.0"))
 		tilesheet = new Tilesheet(bitmap);
 		#end
 		glyphs = new Map<Int, BitmapGlyphFrame>();
@@ -201,7 +200,7 @@ class BitmapFont
 		}
 		
 		bitmap = null;
-		#if RENDER_TILE
+		#if (RENDER_TILE && (openfl < "4.0"))
 		tilesheet = null;
 		#end
 		glyphs = null;
@@ -535,14 +534,14 @@ class BitmapFont
 		glyphFrame.xadvance = xAdvance;
 		glyphFrame.rect = frame;
 		
-		#if RENDER_TILE
+		#if (RENDER_TILE && (openfl < "4.0"))
 		glyphFrame.tileID = tilesheet.addTileRect(frame, new Point(0, 0));
 		#end
 		
 		glyphs.set(charCode, glyphFrame);
 	}
 	
-	#if RENDER_BLIT
+	#if (RENDER_BLIT || (openfl >= "4.0"))
 	/**
 	 * Generates special collection of BitmapGlyph objects, which are used in RENDER_BLIT mode.
 	 * These BitmapGlyph objects contain prepared (scales and color transformed) glyph images, which saves some CPU cycles for you.

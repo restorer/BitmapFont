@@ -10,7 +10,10 @@ import flash.geom.Point;
 import bitmapFont.BitmapFont;
 import haxe.Utf8;
 import openfl.display.PixelSnapping;
+
+#if (RENDER_TILE && (openfl < "4.0"))
 import openfl.display.Tilesheet;
+#end
 
 /**
  * Class for rendering text with provided bitmap font and some additional options.
@@ -183,7 +186,7 @@ class BitmapTextField extends Sprite
 	private var _fieldWidth:Int = 1;
 	private var _fieldHeight:Int = 1;
 	
-	#if RENDER_BLIT
+	#if (RENDER_BLIT || (openfl >= "4.0"))
 	private var _bitmap:Bitmap;
 	private var _bitmapData:BitmapData;
 	
@@ -213,7 +216,7 @@ class BitmapTextField extends Sprite
 		
 		shadowOffset = new Point(1, 1);
 		
-		#if RENDER_BLIT
+		#if (RENDER_BLIT || (openfl >= "4.0"))
 		pixelSnapping = (pixelSnapping == null) ? PixelSnapping.AUTO : pixelSnapping;
 		_bitmapData = new BitmapData(_fieldWidth, _fieldHeight, true, 0x00000000);
 		_bitmap = new Bitmap(_bitmapData, pixelSnapping, smoothing);
@@ -246,7 +249,7 @@ class BitmapTextField extends Sprite
 		_linesWidth = null;
 		shadowOffset = null;
 		
-		#if RENDER_BLIT
+		#if (RENDER_BLIT || (openfl >= "4.0"))
 		_point = null;
 		
 		if (textGlyphs != null)
@@ -886,7 +889,7 @@ class BitmapTextField extends Sprite
 	{
 		computeTextSize();
 		var colorForFill:Int = (background) ? backgroundColor : 0x00000000;
-		#if RENDER_BLIT
+		#if (RENDER_BLIT || (openfl >= "4.0"))
 		if (_bitmapData == null || (_fieldWidth != _bitmapData.width || _fieldHeight != _bitmapData.height))
 		{
 			if (_bitmapData != null)
@@ -920,7 +923,7 @@ class BitmapTextField extends Sprite
 		
 		if (size > 0)
 		{
-			#if RENDER_BLIT
+			#if (RENDER_BLIT || (openfl >= "4.0"))
 			_bitmapData.lock();
 			#end
 			
@@ -982,7 +985,7 @@ class BitmapTextField extends Sprite
 						{
 							for (iterX in 0...iterationsX)
 							{
-								#if RENDER_BLIT
+								#if (RENDER_BLIT || (openfl >= "4.0"))
 								blitLine(line, borderGlyphs, ox + deltaX * (iterX + 1), oy + deltaY * (iterY + 1));
 								#else
 								renderLine(line, colorForBorder, ox + deltaX * (iterX + 1), oy + deltaY * (iterY + 1));
@@ -996,7 +999,7 @@ class BitmapTextField extends Sprite
 						for (iter in 0...iterations)
 						{
 							itd = delta * (iter + 1);
-							#if RENDER_BLIT
+							#if (RENDER_BLIT || (openfl >= "4.0"))
 							//upper-left
 							blitLine(line, borderGlyphs, ox - itd, oy - itd);
 							//upper-middle
@@ -1040,7 +1043,7 @@ class BitmapTextField extends Sprite
 						for (iter in 0...iterations)
 						{
 							itd = delta * (iter + 1);
-							#if RENDER_BLIT
+							#if (RENDER_BLIT || (openfl >= "4.0"))
 							//upper-left
 							blitLine(line, borderGlyphs, ox - itd, oy - itd);
 							//upper-right
@@ -1087,14 +1090,14 @@ class BitmapTextField extends Sprite
 					ox += padding;
 				}
 				
-				#if RENDER_BLIT
+				#if (RENDER_BLIT || (openfl >= "4.0"))
 				blitLine(line, textGlyphs, ox, oy);
 				#else
 				renderLine(line, colorForText, ox, oy);
 				#end
 			}
 			
-			#if RENDER_BLIT
+			#if (RENDER_BLIT || (openfl >= "4.0"))
 			_bitmapData.unlock();
 			#else
 			font.tilesheet.drawTiles(this.graphics, _drawData, smoothing, Tilesheet.TILE_SCALE | Tilesheet.TILE_RGB | Tilesheet.TILE_ALPHA);
@@ -1104,7 +1107,7 @@ class BitmapTextField extends Sprite
 		_pendingGraphicChange = false;
 	}
 	
-	#if RENDER_BLIT
+	#if (RENDER_BLIT || (openfl >= "4.0"))
 	private function blitLine(line:String, glyphs:BitmapGlyphCollection, startX:Int, startY:Int):Void
 	{
 		if (glyphs == null) return;
@@ -1542,7 +1545,7 @@ class BitmapTextField extends Sprite
 	
 	private function set_smoothing(value:Bool):Bool
 	{
-		#if RENDER_BLIT
+		#if (RENDER_BLIT || (openfl >= "4.0"))
 		_bitmap.smoothing = value;
 		#else
 		if (smoothing != value)
@@ -1557,7 +1560,7 @@ class BitmapTextField extends Sprite
 	
 	private function updateTextGlyphs():Void
 	{
-		#if RENDER_BLIT
+		#if (RENDER_BLIT || (openfl >= "4.0"))
 		if (font == null)	return;
 		
 		if (textGlyphs != null)
@@ -1573,7 +1576,7 @@ class BitmapTextField extends Sprite
 	
 	private function updateBorderGlyphs():Void
 	{
-		#if RENDER_BLIT
+		#if (RENDER_BLIT || (openfl >= "4.0"))
 		if (font != null && (borderGlyphs == null || borderColor != borderGlyphs.color || size != borderGlyphs.scale || font != borderGlyphs.font))
 		{
 			if (borderGlyphs != null)
