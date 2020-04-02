@@ -805,7 +805,7 @@ class BitmapTextField extends Sprite
 				{
 					#if ((haxe_ver >= "4.0.5") && !neko)
 						charCode = (word:UnicodeString).charCodeAt(0);
-					#end
+					#else
 						charCode = Utf8.charCodeAt(word, c);
 					#end
 
