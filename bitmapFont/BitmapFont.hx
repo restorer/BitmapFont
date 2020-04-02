@@ -1,6 +1,5 @@
 package bitmapFont;
 
-import haxe.Utf8;
 import openfl.display.BitmapData;
 import openfl.display.Graphics;
 import openfl.geom.ColorTransform;
@@ -13,9 +12,15 @@ import openfl.display.Tilesheet;
 #end
 
 #if (haxe_ver >= "4.0.0")
-	import haxe.xml.Access;
+import haxe.xml.Access;
 #else
-	import haxe.xml.Fast;
+import haxe.xml.Fast;
+#end
+
+#if (haxe_ver < "4.0.5")
+import haxe.Utf8;
+#elseif neko
+import neko.Utf8;
 #end
 
 /**
@@ -296,7 +301,11 @@ class BitmapFont
 					default: glyph;
 				}
 
-				charCode = Utf8.charCodeAt(glyph, 0);
+				#if ((haxe_ver >= "4.0.5") && !neko)
+					charCode = (glyph:UnicodeString).charCodeAt(0);
+				#else
+					charCode = Utf8.charCodeAt(glyph, 0);
+				#end
 			}
 
 			font.addGlyphFrame(charCode, frame, xOffset, yOffset, xAdvance);
@@ -344,7 +353,13 @@ class BitmapFont
 		var cx:Int;
 		var letterIdx:Int = 0;
 		var charCode:Int;
-		var numLetters:Int = Utf8.length(letters);
+
+		#if ((haxe_ver >= "4.0.5") && !neko)
+			var numLetters:Int = (letters:UnicodeString).length;
+		#else
+			var numLetters:Int = Utf8.length(letters);
+		#end
+
 		var rect:Rectangle;
 		var xAdvance:Int;
 
@@ -368,7 +383,11 @@ class BitmapFont
 					var gw:Int = gx - cx;
 					var gh:Int = gy - cy;
 
-					charCode = Utf8.charCodeAt(letters, letterIdx);
+					#if ((haxe_ver >= "4.0.5") && !neko)
+						charCode = (letters:UnicodeString).charCodeAt(letterIdx);
+					#else
+						charCode = Utf8.charCodeAt(letters, letterIdx);
+					#end
 
 					rect = new Rectangle(cx, cy, gw, gh);
 
@@ -503,14 +522,24 @@ class BitmapFont
 		var xAdvance:Int = charWidth;
 		font.spaceWidth = xAdvance;
 		var letterIndex:Int = 0;
-		var numLetters:Int = letters.length;
+
+		#if ((haxe_ver >= "4.0.5") && !neko)
+			var numLetters:Int = (letters:UnicodeString).length;
+		#else
+			var numLetters:Int = Utf8.length(letters);
+		#end
 
 		for (j in 0...(numRows))
 		{
 			for (i in 0...(numCols))
 			{
 				charRect = new Rectangle(startX + i * spacedWidth, startY + j * spacedHeight, charWidth, charHeight);
-				font.addGlyphFrame(Utf8.charCodeAt(letters, letterIndex), charRect, 0, 0, xAdvance);
+
+				#if ((haxe_ver >= "4.0.5") && !neko)
+					font.addGlyphFrame((letters:UnicodeString).charCodeAt(letterIndex), charRect, 0, 0, xAdvance);
+				#else
+					font.addGlyphFrame(Utf8.charCodeAt(letters, letterIndex), charRect, 0, 0, xAdvance);
+				#end
 
 				letterIndex++;
 
