@@ -14,7 +14,7 @@ import openfl.display.PixelSnapping;
 import openfl.display.Tilesheet;
 #end
 
-#if (haxe_ver < "4.0.5")
+#if (haxe_ver < "4.0.0")
 import haxe.Utf8;
 #elseif neko
 import neko.Utf8;
@@ -439,7 +439,7 @@ class BitmapTextField extends Sprite
 		var spaceWidth:Float = Math.ceil(font.spaceWidth * size);
 		var tabWidth:Float = Math.ceil(spaceWidth * numSpacesInTab);
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var lineLength:Int = (str:UnicodeString).length;
 		#else
 			var lineLength:Int = Utf8.length(str);	// lenght of the current line
@@ -455,7 +455,7 @@ class BitmapTextField extends Sprite
 
 		for (c in 0...lineLength)
 		{
-			#if ((haxe_ver >= "4.0.5") && !neko)
+			#if ((haxe_ver >= "4.0.0") && !neko)
 				charCode = (str:UnicodeString).charCodeAt(c);
 			#else
 				charCode = Utf8.charCodeAt(str, c);
@@ -516,7 +516,7 @@ class BitmapTextField extends Sprite
 		var charCode:Int;
 		var charWidth:Float = 0;	// the width of current character
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var subLine:UnicodeString;
 		#else
 			var subLine:Utf8;			// current subline to assemble
@@ -531,7 +531,7 @@ class BitmapTextField extends Sprite
 
 		for (line in _lines)
 		{
-			#if ((haxe_ver >= "4.0.5") && !neko)
+			#if ((haxe_ver >= "4.0.0") && !neko)
 				lineLength = (line:UnicodeString).length;
 				subLine = "";
 			#else
@@ -544,7 +544,7 @@ class BitmapTextField extends Sprite
 			c = 0;
 			while (c < lineLength)
 			{
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					charCode = (line:UnicodeString).charCodeAt(c);
 				#else
 					charCode = Utf8.charCodeAt(line, c);
@@ -566,7 +566,7 @@ class BitmapTextField extends Sprite
 
 				if (subLineWidth + charWidth > _fieldWidth - 2 * padding)
 				{
-					#if ((haxe_ver >= "4.0.5") && !neko)
+					#if ((haxe_ver >= "4.0.0") && !neko)
 						subLine += String.fromCharCode(charCode);
 						newLines.push(subLine);
 						subLine = "";
@@ -581,7 +581,7 @@ class BitmapTextField extends Sprite
 				}
 				else
 				{
-					#if ((haxe_ver >= "4.0.5") && !neko)
+					#if ((haxe_ver >= "4.0.0") && !neko)
 						subLine += String.fromCharCode(charCode);
 					#else
 						subLine.addChar(charCode);
@@ -636,7 +636,7 @@ class BitmapTextField extends Sprite
 	{
 		var word:String = "";				// current word to process
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var wordUtf8:UnicodeString = "";
 		#else
 			var wordUtf8:Utf8 = new Utf8();
@@ -644,7 +644,7 @@ class BitmapTextField extends Sprite
 
 		var isSpaceWord:Bool = false; 		// whether current word consists of spaces or not
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var lineLength:Int = (line:UnicodeString).length;
 			var hyphenCode:Int = ("-":UnicodeString).charCodeAt(0);
 		#else
@@ -655,13 +655,13 @@ class BitmapTextField extends Sprite
 		var c:Int = 0;						// char index on the line
 		var charCode:Int; 					// code for the current character in word
 
-		#if ((haxe_ver < "4.0.5") || neko)
+		#if ((haxe_ver < "4.0.0") || neko)
 			var charUtf8:Utf8;
 		#end
 
 		while (c < lineLength)
 		{
-			#if ((haxe_ver >= "4.0.5") && !neko)
+			#if ((haxe_ver >= "4.0.0") && !neko)
 				charCode = (line:UnicodeString).charCodeAt(c);
 				word = wordUtf8;
 			#else
@@ -679,7 +679,7 @@ class BitmapTextField extends Sprite
 					{
 						words.push(word);
 
-						#if ((haxe_ver >= "4.0.5") && !neko)
+						#if ((haxe_ver >= "4.0.0") && !neko)
 							wordUtf8 = "";
 						#else
 							wordUtf8 = new Utf8();
@@ -687,7 +687,7 @@ class BitmapTextField extends Sprite
 					}
 				}
 
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					wordUtf8 += String.fromCharCode(charCode);
 				#else
 					wordUtf8.addChar(charCode);
@@ -703,7 +703,7 @@ class BitmapTextField extends Sprite
 				}
 				else if (isSpaceWord == false)
 				{
-					#if ((haxe_ver >= "4.0.5") && !neko)
+					#if ((haxe_ver >= "4.0.0") && !neko)
 						words.push(word + String.fromCharCode(charCode));
 					#else
 						charUtf8 = new Utf8();
@@ -712,7 +712,7 @@ class BitmapTextField extends Sprite
 					#end
 				}
 
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					wordUtf8 = "";
 				#else
 					wordUtf8 = new Utf8();
@@ -725,14 +725,14 @@ class BitmapTextField extends Sprite
 					isSpaceWord = false;
 					words.push(word);
 
-					#if ((haxe_ver >= "4.0.5") && !neko)
+					#if ((haxe_ver >= "4.0.0") && !neko)
 						wordUtf8 = "";
 					#else
 						wordUtf8 = new Utf8();
 					#end
 				}
 
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					wordUtf8 += String.fromCharCode(charCode);
 				#else
 					wordUtf8.addChar(charCode);
@@ -742,7 +742,7 @@ class BitmapTextField extends Sprite
 			c++;
 		}
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			word = wordUtf8;
 		#else
 			word = wordUtf8.toString();
@@ -791,7 +791,7 @@ class BitmapTextField extends Sprite
 				wordWidth = 0;
 				word = words[w];
 
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					wordLength = (word:UnicodeString).length;
 					charCode = (word:UnicodeString).charCodeAt(0);
 				#else
@@ -803,7 +803,7 @@ class BitmapTextField extends Sprite
 
 				for (c in 0...wordLength)
 				{
-					#if ((haxe_ver >= "4.0.5") && !neko)
+					#if ((haxe_ver >= "4.0.0") && !neko)
 						charCode = (word:UnicodeString).charCodeAt(0);
 					#else
 						charCode = Utf8.charCodeAt(word, c);
@@ -892,7 +892,7 @@ class BitmapTextField extends Sprite
 
 		var subLine:String;					// current subline to assemble
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var subLineUtf8:UnicodeString;
 		#else
 			var subLineUtf8:Utf8;
@@ -910,7 +910,7 @@ class BitmapTextField extends Sprite
 			w = 0;
 			subLineWidth = startX;
 
-			#if ((haxe_ver >= "4.0.5") && !neko)
+			#if ((haxe_ver >= "4.0.0") && !neko)
 				subLineUtf8 = "";
 			#else
 				subLineUtf8 = new Utf8();
@@ -920,7 +920,7 @@ class BitmapTextField extends Sprite
 			{
 				word = words[w];
 
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					wordLength = (word:UnicodeString).length;
 					charCode = (word:UnicodeString).charCodeAt(0);
 				#else
@@ -934,7 +934,7 @@ class BitmapTextField extends Sprite
 
 				while (c < wordLength)
 				{
-					#if ((haxe_ver >= "4.0.5") && !neko)
+					#if ((haxe_ver >= "4.0.0") && !neko)
 						charCode = (word:UnicodeString).charCodeAt(0);
 					#else
 						charCode = Utf8.charCodeAt(word, c);
@@ -955,7 +955,7 @@ class BitmapTextField extends Sprite
 
 					if (subLineWidth + charWidth > _fieldWidth - 2 * padding)
 					{
-						#if ((haxe_ver >= "4.0.5") && !neko)
+						#if ((haxe_ver >= "4.0.0") && !neko)
 							subLine = subLineUtf8;
 						#else
 							subLine = subLineUtf8.toString();
@@ -966,7 +966,7 @@ class BitmapTextField extends Sprite
 							subLines.push(subLine);
 							c = wordLength;
 
-							#if ((haxe_ver >= "4.0.5") && !neko)
+							#if ((haxe_ver >= "4.0.0") && !neko)
 								subLineUtf8 = "";
 							#else
 								subLineUtf8 = new Utf8();
@@ -978,7 +978,7 @@ class BitmapTextField extends Sprite
 						{
 							subLines.push(subLine);
 
-							#if ((haxe_ver >= "4.0.5") && !neko)
+							#if ((haxe_ver >= "4.0.0") && !neko)
 								subLineUtf8 = String.fromCharCode(charCode);
 							#else
 								subLineUtf8 = new Utf8();
@@ -989,7 +989,7 @@ class BitmapTextField extends Sprite
 						}
 						else	// the line is too tight to hold even one glyph
 						{
-							#if ((haxe_ver >= "4.0.5") && !neko)
+							#if ((haxe_ver >= "4.0.0") && !neko)
 								subLineUtf8 = String.fromCharCode(charCode);
 							#else
 								subLineUtf8 = new Utf8();
@@ -1001,7 +1001,7 @@ class BitmapTextField extends Sprite
 					}
 					else
 					{
-						#if ((haxe_ver >= "4.0.5") && !neko)
+						#if ((haxe_ver >= "4.0.0") && !neko)
 							subLineUtf8 += String.fromCharCode(charCode);
 						#else
 							subLineUtf8.addChar(charCode);
@@ -1016,7 +1016,7 @@ class BitmapTextField extends Sprite
 				w++;
 			}
 
-			#if ((haxe_ver >= "4.0.5") && !neko)
+			#if ((haxe_ver >= "4.0.0") && !neko)
 				subLine = subLineUtf8;
 			#else
 				subLine = subLineUtf8.toString();
@@ -1272,7 +1272,7 @@ class BitmapTextField extends Sprite
 		var spaceWidth:Int = Std.int(font.spaceWidth * size);
 		var tabWidth:Int = Std.int(spaceWidth * numSpacesInTab);
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var lineLength:Int = (line:UnicodeString).length;
 		#else
 			var lineLength:Int = Utf8.length(line);
@@ -1280,7 +1280,7 @@ class BitmapTextField extends Sprite
 
 		for (i in 0...lineLength)
 		{
-			#if ((haxe_ver >= "4.0.5") && !neko)
+			#if ((haxe_ver >= "4.0.0") && !neko)
 				charCode = (line:UnicodeString).charCodeAt(i);
 			#else
 				charCode = Utf8.charCodeAt(line, i);
@@ -1327,7 +1327,7 @@ class BitmapTextField extends Sprite
 
 		var pos:Int = _drawData.length;
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var lineLength:Int = (line:UnicodeString).length;
 		#else
 			var lineLength:Int = Utf8.length(line);
@@ -1335,7 +1335,7 @@ class BitmapTextField extends Sprite
 
 		for (i in 0...lineLength)
 		{
-			#if ((haxe_ver >= "4.0.5") && !neko)
+			#if ((haxe_ver >= "4.0.0") && !neko)
 				charCode = (line:UnicodeString).charCodeAt(i);
 			#else
 				charCode = Utf8.charCodeAt(line, i);

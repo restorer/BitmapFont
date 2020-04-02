@@ -13,14 +13,10 @@ import openfl.display.Tilesheet;
 
 #if (haxe_ver >= "4.0.0")
 import haxe.xml.Access;
+#if neko import neko.Utf8; #end
 #else
 import haxe.xml.Fast;
-#end
-
-#if (haxe_ver < "4.0.5")
 import haxe.Utf8;
-#elseif neko
-import neko.Utf8;
 #end
 
 /**
@@ -301,7 +297,7 @@ class BitmapFont
 					default: glyph;
 				}
 
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					charCode = (glyph:UnicodeString).charCodeAt(0);
 				#else
 					charCode = Utf8.charCodeAt(glyph, 0);
@@ -354,7 +350,7 @@ class BitmapFont
 		var letterIdx:Int = 0;
 		var charCode:Int;
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var numLetters:Int = (letters:UnicodeString).length;
 		#else
 			var numLetters:Int = Utf8.length(letters);
@@ -383,7 +379,7 @@ class BitmapFont
 					var gw:Int = gx - cx;
 					var gh:Int = gy - cy;
 
-					#if ((haxe_ver >= "4.0.5") && !neko)
+					#if ((haxe_ver >= "4.0.0") && !neko)
 						charCode = (letters:UnicodeString).charCodeAt(letterIdx);
 					#else
 						charCode = Utf8.charCodeAt(letters, letterIdx);
@@ -523,7 +519,7 @@ class BitmapFont
 		font.spaceWidth = xAdvance;
 		var letterIndex:Int = 0;
 
-		#if ((haxe_ver >= "4.0.5") && !neko)
+		#if ((haxe_ver >= "4.0.0") && !neko)
 			var numLetters:Int = (letters:UnicodeString).length;
 		#else
 			var numLetters:Int = Utf8.length(letters);
@@ -535,7 +531,7 @@ class BitmapFont
 			{
 				charRect = new Rectangle(startX + i * spacedWidth, startY + j * spacedHeight, charWidth, charHeight);
 
-				#if ((haxe_ver >= "4.0.5") && !neko)
+				#if ((haxe_ver >= "4.0.0") && !neko)
 					font.addGlyphFrame((letters:UnicodeString).charCodeAt(letterIndex), charRect, 0, 0, xAdvance);
 				#else
 					font.addGlyphFrame(Utf8.charCodeAt(letters, letterIndex), charRect, 0, 0, xAdvance);
