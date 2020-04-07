@@ -1,11 +1,26 @@
 {
-	"name": "bitmapFont",
-	"url" : "https://github.com/Beeblerox/BitmapFont",
-	"license": "MIT",
-	"tags": ["game", "openfl", "flash", "neko", "cpp", "android", "ios", "cross"],
-	"description": "Component for rendering text with bitmap font on all openfl targets.",
-	"releasenote": "Using Utf8 class for getting char codes, makes it work with specific chars",
-	"version": "0.9.5",
-	"contributors": ["Beeblerox", "restorer"],
-	"dependencies": { "lime": "", "openfl": "" }
+    "name": "bitmapFont",
+    "url": "https://github.com/restorer/BitmapFont",
+    "license": "MIT",
+    "tags": [
+        "game",
+        "openfl",
+        "flash",
+        "neko",
+        "cpp",
+        "android",
+        "ios",
+        "cross"
+    ],
+    "description": "Component for rendering text with bitmap font on all openfl targets.",
+    "releasenote": "Fixes for Haxe 4",
+    "version": "1.0.0",
+    "contributors": [
+        "Beeblerox",
+        "restorer"
+    ],
+    "dependencies": {
+        "lime": "",
+        "openfl": ""
+    }
 }

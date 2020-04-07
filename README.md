@@ -13,4 +13,3 @@ Text in this component can be:
 	- wrapped by character or by word;
 	- left, right aligned or centered;
 	- and some other small features.
-	
